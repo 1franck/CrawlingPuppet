@@ -1,14 +1,13 @@
-import {ParserInterface} from "../../Domain/ParserInterface";
 import {Page} from "puppeteer";
 import {URL} from "url";
+import {Parser} from "../CrawlingPuppet";
 
-export class SameHostLinksParser implements ParserInterface
+export class SameHostLinksParser implements Parser
 {
     private hostname: string;
 
     constructor(url: string) {
         this.hostname = (new URL(url)).hostname;
-        console.log(this.hostname);
     }
 
     async parse(page: Page): Promise<any> {

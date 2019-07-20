@@ -14,7 +14,7 @@ services:
     build: .
     tty: true
     stdin_open: true
-    entrypoint: ["ts-node", "./src/fetch"]
+    entrypoint: ["ts-node", "./src/main"]
     env_file:
       - .env
     volumes:

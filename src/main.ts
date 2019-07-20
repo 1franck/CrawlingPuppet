@@ -4,12 +4,13 @@ import {PuppeteerFactory} from "./Core/PuppeteerFactory";
 import {Utils} from "./Core/Utils";
 import {PageRecorder} from "./Core/PageRecorder";
 import {SameHostLinksParser} from "./Core/Parser/SameHostLinksParser";
+import {Config} from "./Core/CrawlingPuppet";
 
 (async() => {
 
     try {
 
-        const storage = new FileStorage(),
+        const storage = new FileStorage('./tmp'),
             browser = await PuppeteerFactory.createBrowser(),
             page = await PuppeteerFactory.createPage(browser),
             pageRecorder = new PageRecorder(page, storage),
@@ -18,6 +19,16 @@ import {SameHostLinksParser} from "./Core/Parser/SameHostLinksParser";
         await pageRecorder.record(url, Utils.url2filename(url));
 
         // console.log(await (new SameHostLinksParser(url)).parse(page));
+
+        let config: Config = {
+            url: url,
+            storage: {
+                driver: storage,
+                details: {
+                    'foo' : 'bar'
+                }
+            }
+        };
 
         await browser.close();
 
