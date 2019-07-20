@@ -1,0 +1,29 @@
+{
+  "name": "CrawlingPuppet",
+  "version": "0.1.0",
+  "description": "Crawling Puppet",
+  "license": "MIT",
+  "author": "François Lajoie",
+  "scripts": {
+    "tests": "mocha -r ts-node/register 'tests/**/*.spec.ts'",
+    "start:prod": "forever dist/src/main.js"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.1.12",
+    "inversify": "^5.0.1",
+    "inversify-express-utils": "^6.2.0",
+    "ioredis": "^4.3.0"
+  },
+  "devDependencies": {
+    "@types/es6-shim": "^0.31.37",
+    "@types/ioredis": "^3.2.8",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.3.1",
+    "@types/puppeteer": "^1.12.4",
+    "mocha": "^5.2.0",
+    "ts-mockito": "^2.3.1",
+    "ts-node": "^7.0",
+    "typescript": "^3.2"
+  },
+  "contributors": []
+}

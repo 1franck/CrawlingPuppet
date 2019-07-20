@@ -1,0 +1,28 @@
+version: "3.2"
+services:
+
+  install:
+    build: .
+    tty: true
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    entrypoint: ["npm", "install", "--no-bin-links", "--dev"]
+
+  crawler:
+    build: .
+    tty: true
+    stdin_open: true
+    entrypoint: ["ts-node", "./src/fetch"]
+    env_file:
+      - .env
+    volumes:
+      - ./:/app
+
+  redis:
+    image: redis:5
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data:rw
