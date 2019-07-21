@@ -1,15 +1,13 @@
-import {replaceAll} from "./ReplaceAll";
+import {replaceAllArray} from "./ReplaceAll";
 
 export function urlToFilename(url: string): string {
 
-    url = replaceAll(url, "://", "_");
-    url = replaceAll(url, ".", "_");
-    url = replaceAll(url, "/", "_");
-    url = replaceAll(url, '\?', '_');
-    url = replaceAll(url, '&', '_');
-    url += '.dump';
+    url = replaceAllArray(
+        url,
+        ["://", ".", "/", "\?", "&"],
+        ["_"]
+    );
 
-    // Replace last UNDERSCORE with a DOT
-    // uniqueName = uniqueName.substring(0,uniqueName.lastIndexOf('_')) +"."+uniqueName.substring(uniqueName.lastIndexOf('_')+1,uniqueName.length);
+    url += '.dump';
     return url;
 }
