@@ -1,10 +1,13 @@
 import {Cli} from "./Core/Cli";
 import {FileStorage} from "./Core/Storage/FileStorage";
 import {PuppeteerFactory} from "./Core/PuppeteerFactory";
-import {Utils} from "./Core/Utils";
 import {PageRecorder} from "./Core/PageRecorder";
 import {SameHostLinksParser} from "./Core/Parser/SameHostLinksParser";
 import {Config} from "./Core/CrawlingPuppet";
+import {sleep} from "./Core/Util/Sleep";
+import {urlToFilename} from "./Core/Util/UrlToFilename";
+
+// const commandLineArgs = require('command-line-args')
 
 (async() => {
 
@@ -14,27 +17,43 @@ import {Config} from "./Core/CrawlingPuppet";
             browser = await PuppeteerFactory.createBrowser(),
             page = await PuppeteerFactory.createPage(browser),
             pageRecorder = new PageRecorder(page, storage),
-            url = Cli.getUrl();
+            urls =  [Cli.getUrl()];
 
-        await pageRecorder.record(url, Utils.url2filename(url));
 
-        // console.log(await (new SameHostLinksParser(url)).parse(page));
+        for (let i = 0; i < urls.length; i++) {
 
-        let config: Config = {
-            url: url,
-            storage: {
-                driver: storage,
-                details: {
-                    'foo' : 'bar'
-                }
-            }
-        };
+            await pageRecorder.record(urls[i], urlToFilename(urls[i]));
+
+            let childUrls = await (new SameHostLinksParser(urls[i])).parse(page);
+            console.log(childUrls);
+
+            //  = Utils.shuffle();
+            // for (let childUrl of childUrls) {
+            //     urls.push(childUrl)
+            // }
+
+            await sleep(5000);
+        }
+
+
+        // console.log();
+        //
+        // let config: Config = {
+        //     url: url,
+        //     storage: {
+        //         driver: storage,
+        //         details: {
+        //             'foo' : 'bar'
+        //         }
+        //     }
+        // };
 
         await browser.close();
 
 
     }
     catch(error) {
+        console.log(error)
         console.log(error.message);
         process.exit();
     }
