@@ -20,9 +20,28 @@ services:
     volumes:
       - ./:/app
 
-  redis:
-    image: redis:5
-    ports:
-      - 6379:6379
+  tests:
+    build: .
+    tty: true
     volumes:
-      - ./data/redis:/data:rw
+      - .:/app
+    env_file:
+      - .env
+    entrypoint: ["npm", "run", "tests"]
+
+  tests-with-cover:
+    build: .
+    tty: true
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    entrypoint: ["npm", "run", "tests:cover"]
+
+  shell:
+    build: .
+    tty: true
+    entrypoint: ["/bin/bash"]
+    working_dir: "/app"
+    volumes:
+      - .:/app
