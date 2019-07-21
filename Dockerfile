@@ -34,7 +34,7 @@ RUN mkdir /screenshots \
     && chown -R pptruser:pptruser /screenshots \
     && chown -R pptruser:pptruser /app
 
-RUN npm i -g typescript ts-node tslint mocha --unsafe-perm=true --allow-root
+RUN npm i -g typescript ts-node tslint mocha nyc chai --unsafe-perm=true --allow-root
 
 # Run everything after as non-privileged user.
 USER pptruser
