@@ -2,12 +2,9 @@ import {replaceAllArray} from "./ReplaceAll";
 
 export function urlToFilename(url: string): string {
 
-    url = replaceAllArray(
+    return replaceAllArray(
         url,
         ["://", ".", "/", "\?", "&"],
         ["_"]
     );
-
-    url += '.dump';
-    return url;
 }
