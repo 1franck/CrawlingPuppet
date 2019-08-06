@@ -1,15 +1,14 @@
+import {DefaultPageNavigator} from './Core/Navigator/DefaultPageNavigator';
+import {DefaultPageRecorder} from './Core/Recorder/DefaultPageRecorder';
 import {FileStorage} from './Core/Storage/FileStorage';
 import {PuppeteerFactory} from './Core/PuppeteerFactory';
-import {PageRecorder} from './Core/PageRecorder';
 import {SameHostLinksParser} from './Core/Parser/SameHostLinksParser';
-import {Config} from './Core/CrawlingPuppet';
 import {sleep, randomSleep} from './Core/Util/Sleep';
 import {urlToFilename} from './Core/Util/UrlToFilename';
 import {URL} from 'url';
 import {shuffle} from './Core/Util/Shuffle';
 import commandLineArgs = require('command-line-args');
 import ora = require('ora');
-import {PageNavigator} from "./Core/PageNavigator";
 
 (async() => {
 
@@ -33,8 +32,8 @@ import {PageNavigator} from "./Core/PageNavigator";
         const storage = new FileStorage('./tmp'),
             browser = await PuppeteerFactory.createBrowser(),
             page = await PuppeteerFactory.createPage(browser),
-            pageRecorder = new PageRecorder(storage),
-            pageNavigator = new PageNavigator(),
+            pageNavigator = new DefaultPageNavigator(),
+            pageRecorder = new DefaultPageRecorder(storage),
             urls =  [options.url];
 
 
