@@ -1,12 +1,13 @@
 # folders
 /.idea
-/node_modules
-/dist
-/coverage
 /.nyc_output
+/backup
+/coverage
+/dist
+/node_modules
 
 # files
+*.bak
 .env
 package-lock.json
 tmp/*
-*.bak
