@@ -1,6 +1,9 @@
 import * as fs from "fs";
 import {Storage} from "../CrawlingPuppet";
 import {fileExists} from "../Util/FileExists";
+import {promisify} from "es6-promisify";
+
+const mkdir = promisify(fs.mkdir);
 
 export class FileStorage implements Storage
 {
@@ -10,24 +13,22 @@ export class FileStorage implements Storage
         this.path = path;
     }
 
-    save(name: string, content: string, metadata: any): any {
+    async save(name: string, content: string, metadata: any): Promise<any> {
 
         let content2Save = content;
         if (metadata.url !== undefined) {
             content2Save = '|||||||||' + JSON.stringify(metadata) + '|||||||||' + "\n" + content;
         }
-        this.saveFile(name, content2Save);
+        await this.saveFile(name, content2Save);
     }
 
-    private saveFile(name: string, content: string) {
+    private async saveFile(name: string, content: string) {
 
         let filepath = this.path + '/' + name;
 
         if (!fileExists(this.path)) {
-            fs.mkdir(this.path,(err) => {
-                if(err) {
-                    throw err;
-                }
+            await mkdir(this.path).catch((err: any) => {
+                throw err;
             });
         }
 
@@ -37,4 +38,6 @@ export class FileStorage implements Storage
             }
         });
     }
+
+
 }
