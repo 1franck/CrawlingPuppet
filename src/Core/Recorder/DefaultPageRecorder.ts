@@ -1,7 +1,7 @@
 import {Page} from "puppeteer";
-import {PageRecorder as PR, Storage} from "./CrawlingPuppet";
+import {PageRecorder as PR, Storage} from "../CrawlingPuppet";
 
-export class PageRecorder implements PR
+export class DefaultPageRecorder implements PR
 {
     constructor(private storage: Storage) {}
 
