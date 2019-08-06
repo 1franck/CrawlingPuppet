@@ -2,7 +2,11 @@
 /.idea
 /node_modules
 /dist
+/coverage
+/.nyc_output
 
 # files
 .env
 package-lock.json
+tmp/*
+*.bak
