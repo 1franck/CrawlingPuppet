@@ -19,5 +19,10 @@ export interface Storage {
 }
 
 export interface PageRecorder {
-    record(url: string, name: string, test: string): Promise<any>
+    record(page: Page, name: string): Promise<any>
 }
+
+export interface PageNavigator {
+    navigate(page: Page, url: string): Promise<any>
+}
+

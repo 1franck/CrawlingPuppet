@@ -3,18 +3,16 @@ import {PageRecorder as PR, Storage} from "./CrawlingPuppet";
 
 export class PageRecorder implements PR
 {
-    constructor(private page: Page, private storage: Storage) {}
+    constructor(private storage: Storage) {}
 
-    async record(url: string, name: string): Promise<any> {
+    async record(page: Page, name: string): Promise<any> {
 
-        await this.page.goto(url);
-        await this.page.evaluate('window.scrollTo(0, document.body.scrollHeight)');
-        let content = await this.page.content();
+        let content = await page.content();
         let metadata = {
-            url: url,
+            url: page.url(),
             date: Date.now(),
         };
 
-        this.storage.save(name, content, metadata);
+        await this.storage.save(name, content, metadata);
     }
 }
