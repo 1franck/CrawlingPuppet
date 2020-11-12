@@ -1,8 +1,0 @@
-{
-    "extends": "@istanbuljs/nyc-config-typescript",
-    "all": true,
-    "@std/esm": {
-      "esm": "all",
-      "cjs": true
-    }
-}

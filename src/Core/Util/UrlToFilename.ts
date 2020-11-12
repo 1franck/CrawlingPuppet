@@ -1,10 +1,5 @@
-import {replaceAllArray} from "./ReplaceAll";
+import { replaceAllArray } from './ReplaceAll'
 
 export function urlToFilename(url: string): string {
-
-    return replaceAllArray(
-        url,
-        ["://", ".", "/", "\?", "&"],
-        ["_"]
-    );
+  return replaceAllArray(url, ['://', '.', '/', '?', '&'], ['_'])
 }
